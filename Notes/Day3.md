@@ -6,10 +6,9 @@
 
 ## 读取数据集
 
-使用pdfplumber读取pdf文档
+#### 使用pdfplumber读取pdf文档
 
 ```{python}
-
 import pdfplumber
 pdf = pdfplumber.open("初赛训练数据集.pdf")
 pdf_content = []
@@ -18,10 +17,9 @@ for page_idx in range(len(pdf.pages)):
         'page': 'page_' + str(page_idx + 1),
         'content': pdf.pages[page_idx].extract_text()
     })
-
 ```
 
-使用langchain读取pdf数据
+#### 使用langchain读取pdf数据
 
 langchain 可以使用pypdf读取pdf文档
 
@@ -30,7 +28,6 @@ langchain 可以使用pypdf读取pdf文档
 from langchain_community.document_loaders import PyPDFLoader
 loader = PyPDFLoader("初赛训练数据集.pdf")
 data=loader.load()
-
 ```
 
 这边会生成langchain的Document类型文档list。Document其中包括两个方面，一个是content,这个是pdf文档中的文本内容，另一个是metadata,这个能够显示documnet的source，page等。
@@ -42,7 +39,6 @@ data=loader.load()
 from langchain_community.document_loaders import PyPDFLoader
 loader = PyPDFLoader("初赛训练数据集.pdf"，extract_images=True)
 data=loader.load()
-
 ```
 
 除此之外，常见的pdf读取方式有
@@ -51,12 +47,18 @@ data=loader.load()
 from langchain_community.document_loaders import UnstructuredPDFLoader
 loader = UnstructuredPDFLoader("初赛训练数据集.pdf")
 data=loader.load()
-
 ```
 
 ```{python}
 from langchain_community.document_loaders import PyMuPDFLoader
 loader = PyMuPDFLoader("初赛训练数据集.pdf")
 data=loader.load()
+```
 
+## 读取测试
+
+```{python}
+import json
+
+questions = json.load(open("questions.json"))
 ```
